@@ -4,7 +4,7 @@
             <h1 class="text-4xl font-semibold text-center">{{ 'Pirkti dovanų kuponą' }}</h1>
             <h2 class="text-3xl text-center mt-1.5">{{ 'Tik 3 paprasti žingsniai!' }}</h2>
 
-            <ol class="mx-auto mt-8 flex lg:w-6/12 md:w-11/12 sm:w-full lg:px-4 md:px-2 sm:px-1 max-w-lg items-center justify-between">
+            <ol class="mx-auto mt-8 flex lg:w-7/12 md:w-11/12 sm:w-full lg:px-4 md:px-2 sm:px-1 max-w-lg items-center justify-between">
                 <li class="flex w-full items-center">
                     <div class="relative flex flex-col items-center">
                         <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
@@ -92,15 +92,15 @@
                     ></label>
                     <label class="text-base font-normal ml-2" for="custom">
                         {{ 'Sutinku su ' }}
-                        <a href="#" class="border-b border-b-black hover:font-medium">{{ 'Taisyklėmis' }}</a>
+                        <a href="#" class="border-b border-b-black hover:text-[#6269ed]">{{ 'Taisyklėmis' }}</a>
                         {{ ' ir ' }}
-                        <a href="#" class="border-b border-b-black hover:font-medium">{{ 'Privatumo politika' }}</a>
+                        <a href="#" class="border-b border-b-black hover:text-[#6269ed]">{{ 'Privatumo politika' }}</a>
                     </label>
                 </div>
 
                 <div class="flex items-center justify-between flex-wrap sm:flex-nowrap mb-3">
                     <div class="text-base md:w-1/3 sm:w-full mt-4">
-                        <a href="#" class="text-[#acaeb0] group flex">
+                        <a href="#" class="text-[#707070] group flex">
                             <span class="mt-1 mr-2 group-hover:mt-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="13">
                                     <image width="16" height="13" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAANCAYAAACgu+4kAAAAAXNSR0IArs4c6QAAALRJREFUOE9jZMACMjMzBdnZ2Xf///+/c+LEiauxqYGJMaJLwjSDxH/+/Ok6ffr090QbQKpmkMEoLigoKNjNwMBg/O/fP9dJkyadxWczhhcKCgpmMjAwhJKiGe4CqOa0////VzAxMRFlM9QF9xgLCwtd/v//D3I6yQBkITgM8vPzyxkZGTv+//8fRija0G2BByJFYQAzlRxDMBISqYZgGAByDSw9MDIymvT3998jOiXCFJKSFwBnGmVHpPZ/bQAAAABJRU5ErkJggg==" data-name="icon-arrow-left"/>
