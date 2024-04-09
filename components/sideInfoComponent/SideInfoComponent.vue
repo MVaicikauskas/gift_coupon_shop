@@ -2,11 +2,11 @@
     <div class="w-100 p-8 xl:lg:p-0 xl:lg:py-10 xl:lg:pr-24">
         <h1 class="text-5xl font-semibold text-left">{{ 'Dovanų kuponas' }}</h1>
         <div class="text-left mt-7">
-            <span class="text-lg">{{ 'Nežinote, ką padovanoti savo artimajam?' }}</span><br>
-            <span class="text-lg">{{ 'Dovanų kuponas - tai puiki dovana ir puikus sprendimas dvejojantiems ką išrinkti!' }}</span>
+            <span class="text-2xl">{{ 'Nežinote, ką padovanoti savo artimajam?' }}</span><br>
+            <span class="text-2xl">{{ 'Dovanų kuponas - tai puiki dovana ir puikus sprendimas dvejojantiems ką išrinkti!' }}</span>
         </div>
         <div class="flex mt-8 gap-8 flex-wrap">
-            <button class="text-[#6269ed] bg-inherit font-medium text-lg flex flex-nowrap">
+            <button class="text-[#6269ed] bg-inherit font-medium text-xl flex flex-nowrap">
                 <span class="pr-2 my-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="21">
                         <image width="20" height="21" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAVCAYAAABG1c6oAAAAAXNSR0IArs4c6QAAAc9JREFUOE+1lU9SwjAYxV9YqMvUI8AR8AhwBFy40bKAyQngCHKCjF1Q3biQI9gjyBHkCJKluKDOSxOm1KS40M6w4Evzy/v+5FUg8oyV6e6BkQC6qH58NiWw6QCrpZab0FbRDBJUAjMAk9hhLp4JYNEEHwFTZQi5B5AAKEog+wKKZy23hNwok5wBA1EdNgDA+DzXMvOHH4AO9sCXBHC91LJoUzhWZlACL+7wqYda4K0y/Q7wRtgeGD5puT6Rrl12+14J3QNX3GeBqTIMDnwwUFeWAUst5821mpgi13IonHQCs1zLaUhZqswH47mWl5F1lmoigKFIlfF/erFRYOedwuCouMl4pygCWbsk17LXMpPRlP2eVBkCtwSWHBHmHwO6d5jyj7mtAW0f/gXIgq//SGGfCq3UE+mwLKdStqUTd8rMRHXdDtPerOWpGvpbVgJzwft5DtgOxTr9iznk/mQH9GzXaiqDw902h36Oqe5Ry0XdHDiP/bYbEyiFvRSuqVdcPwBd6mwQoYXzuqDjuOtKz6SFrXfA0Fvc0aASegHMnMHyQLpHsa98Dx0gKSsID6WaxSew8LAjhfV0aq49cn5XXyZ8FXLrKLAJr39TYgbi93wDDg32cTE27YMAAAAASUVORK5CYII=" data-name="icon-info"/>
@@ -14,7 +14,7 @@
                 </span>
                 <span class="text-nowrap my-auto">{{ 'Svarbi informacija' }}</span>
             </button>
-            <button class="text-[#6269ed] bg-inherit font-medium text-lg flex flex-nowrap">
+            <button class="text-[#6269ed] bg-inherit font-medium text-xl flex flex-nowrap">
                 <span class="pr-2 my-auto">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="23">
                         <image width="22" height="23" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAXCAYAAAAP6L+eAAAAAXNSR0IArs4c6QAAAdJJREFUSEvdlcFtwjAUhn+3UunRMAIdAUYII8ChlxIORZ4ARoAJLDgQeumhjAAjlBHKCMVH6AFXfxIjkwZIxK2WEIjY/3vvf99zxLMy1QfgFbetzVzLhS8hQmWWABoA1jdoBwJozbRcOQ0KWwt0shHLBAmV+bTAYq7l+EQ4G62MKPeyagus/pFwV5m2uEJItuRCVrwo0xBAcMXjP2h1lRkw4JuWR7JiKso0Lxs8K1iaCg7SIzCxQBvAJv2Q/6oAFjug/67lNlc4VIYTODmZIGA803JIVvm/AIb+IKRnRgwUadnMFe4pUz8kGR0XS6XvbOoeaPpZuU205w7gkAwdy4U8DpX5AjCOtJyea2yoDCsNIi2f4sqyzWP0e6C6A9YuO+7ZA7W8bF2gFNWPSEvxRzjjMT2Lo1PYHTiXcU+ZwALLXOG08+w012amJbtP4W8L9C9dVGRZAINIy1quFXkZpf7VIy1bec+ZUAUgNatIy35h4fQgG7jYA0Pf6/RZfKf7fShEBTNIkaLAlgNxSL7rSPDkYPD3tFTGrnz3GvPvE3L+A0wrSQBOZsyye4McwS57yfv7Par6oqfMyAKDooK0YaZl58Kg8FoYxTCTwaLCPoaXzvwCEcc573bfdK8AAAAASUVORK5CYII=" data-name="icon-document-preview"/>
@@ -33,8 +33,8 @@
                     </span>
                 </div>
                 <div>
-                    <h1 class="text-lg font-semibold pb-1">{{ 'Puiki dovana' }}</h1>
-                    <span class="text-[#808082] text-base">{{ 'Dovanų kuponas, tai universali dovana, kuri pradžiugins kiekvieną!' }}</span>
+                    <h1 class="text-[21.333px] font-semibold pb-1">{{ 'Puiki dovana' }}</h1>
+                    <span class="text-[#808082] text-[18.667px]">{{ 'Dovanų kuponas, tai universali dovana, kuri pradžiugins kiekvieną!' }}</span>
                 </div>
             </div>
             <div class="flex mb-12">
@@ -44,8 +44,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-lg font-semibold pb-1">{{ 'Pasirinkimo laivė' }}</h1>
-                    <p class="text-[#808082] text-base">{{ 'Neturite idėjų ką padovanoti? Suteikite džiaugsmą dovanos gavėjui išsirinkti pačiam!' }}</p>
+                    <h1 class="text-[21.333px] font-semibold pb-1">{{ 'Pasirinkimo laivė' }}</h1>
+                    <p class="text-[#808082] text-[18.667px]">{{ 'Neturite idėjų ką padovanoti? Suteikite džiaugsmą dovanos gavėjui išsirinkti pačiam!' }}</p>
                 </div>
             </div>
             <div class="flex mb-12">
@@ -57,8 +57,8 @@
                     </span>
                 </div>
                 <div>
-                    <h1 class="text-lg font-semibold pb-1">{{ 'Sutaupykite laiko' }}</h1>
-                    <p class="text-[#808082] text-base">{{ 'Tai patogu ir paprasta, užtruksite vos kelias minutes.' }}</p>
+                    <h1 class="text-[21.333px] font-semibold pb-1">{{ 'Sutaupykite laiko' }}</h1>
+                    <p class="text-[#808082] text-[18.667px]">{{ 'Tai patogu ir paprasta, užtruksite vos kelias minutes.' }}</p>
                 </div>
             </div>
         </div>
