@@ -1,8 +1,8 @@
 <template>
     <div class="container-xl p-12 bg-white">
         <div class="text-center">
-            <h1 class="text-lg text-[#969696] font-bold pb-2">{{ 'D.U.K' }}</h1>
-            <h2 class="text-4xl font-semibold">{{ 'Svarbi informacija' }}</h2>
+            <h1 class="text-xl text-[#969696] font-semibold pb-3">{{ 'D.U.K' }}</h1>
+            <h2 class="text-5xl font-semibold">{{ 'Svarbi informacija' }}</h2>
         </div>
         <div class="mx-auto w-full sm:w-1/2 lg mt-12">
             <div class="">
@@ -28,7 +28,9 @@
                             </svg>
                         </div>
                     </summary>
-                    <div class="pb-4 text-secondary-500">{{ 'Tekstas' }}</div>
+                    <div class="pb-4 text-secondary-500 text-base pr-11">
+                        {{ 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' }}
+                    </div>
                 </details>
                 <details class="group bg-[#f3f4f8] rounded-xl px-5 py-1 my-2">
                     <summary class="flex gap-4 cursor-pointer list-none items-center justify-between py-4 text-lg font-medium text-secondary-900 group-open:text-primary-500">
@@ -52,7 +54,9 @@
                             </svg>
                         </div>
                     </summary>
-                    <div class="pb-4 text-secondary-500">{{ 'Tekstas 2' }}</div>
+                    <div class="pb-4 text-secondary-500 text-base pr-11">
+                        {{ 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' }}
+                    </div>
                 </details>
                 <details class="group bg-[#f3f4f8] rounded-xl px-5 py-1 my-2">
                     <summary class="flex gap-4 cursor-pointer list-none items-center justify-between py-4 text-lg font-medium text-secondary-900 group-open:text-primary-500">
@@ -75,7 +79,9 @@
                             </svg>
                         </div>
                     </summary>
-                    <div class="pb-4 text-secondary-500">{{ 'Tekstas 3' }}</div>
+                    <div class="pb-4 text-secondary-500 text-base pr-11">
+                        {{ 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' }}
+                    </div>
                 </details>
                 <details class="group bg-[#f3f4f8] rounded-xl px-5 py-1 my-2">
                     <summary class="flex gap-4 cursor-pointer list-none items-center justify-between py-4 text-lg font-medium text-secondary-900 group-open:text-primary-500">
@@ -99,7 +105,9 @@
                             </svg>
                         </div>
                     </summary>
-                    <div class="pb-4 text-secondary-500">{{ 'Tekstas 4' }}</div>
+                    <div class="pb-4 text-secondary-500 text-base pr-11">
+                        {{ 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' }}
+                    </div>
                 </details>
                 <details class="group bg-[#f3f4f8] rounded-xl px-5 py-1 my-2">
                     <summary class="flex gap-4 cursor-pointer list-none items-center justify-between py-4 text-lg font-medium text-secondary-900 group-open:text-primary-500">
@@ -123,7 +131,9 @@
                             </svg>
                         </div>
                     </summary>
-                    <div class="pb-4 text-secondary-500">{{ 'Tekstas 5' }}</div>
+                    <div class="pb-4 text-secondary-500 text-base pr-11">
+                        {{ 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' }}
+                    </div>
                 </details>
             </div>
         </div>

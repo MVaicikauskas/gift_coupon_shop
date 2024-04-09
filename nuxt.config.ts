@@ -8,4 +8,12 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  modules: ['@nuxtjs/google-fonts'],
+  googleFonts: {
+    families: {
+      'Poppins': true,
+      download: true,
+      inject: true,
+    },
+  }
 })
