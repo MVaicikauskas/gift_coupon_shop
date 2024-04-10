@@ -11,7 +11,7 @@
                             <image width="14" height="13" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAAAXNSR0IArs4c6QAAAKxJREFUKFOV0rsRwyAMBuCfijqzxCPEI2SF3NExRkqZhrNX8AjJCMksqWkgJx/4cPw4RSXiOwkJhY0wxpy895+tXDlTv0lGWusHgIGIhj28gBUCETWiijUKIbTiVq21L64gQXxvatVa2wM4S9EEM7oBeAM4nGT9ZoaMeqXUGGNkLIrSKuN7jLF1zonwvI7c8lWKF3v8B69+TsaXEEJztMsVLOtJKT27rhv3JvUFa5VX3RQYtZgAAAAASUVORK5CYII=" data-name="icon-arrow-left"/>
                         </svg>
                     </span>
-                    <span class="text-nowrap text-base">{{ 'Grįžti į el. parduotuvę' }}</span>
+                    <span class="text-nowrap text-sm">{{ 'Grįžti į el. parduotuvę' }}</span>
                 </a>
             </div>
             <div class="w-full flex justify-center sm:w-1/3 py-3 sm:text-center text-[#363636]">
