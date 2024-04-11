@@ -1,5 +1,5 @@
 <template>
-    <section id="page-index" class="bg-[#f3f4f8]">
+    <section id="page-index" class="bg-[#f3f4f8] default-font">
         <NavbarComponent></NavbarComponent>
         <WrapperComponent></WrapperComponent>
         <FaqComponent></FaqComponent>
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style scoped>
-    * {
-        font-family: "Poppins";
+    .default-font {
+        font-family: Poppins, San-serif;
     }
 </style>

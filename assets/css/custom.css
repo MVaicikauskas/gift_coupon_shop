@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "icons";
+    src: url("../fonts/Solidus-kodas/Solidus-kodas-NEW.eot");
+    src: url("../fonts/Solidus-kodas/Solidus-kodas-NEW.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Solidus-kodas/Solidus-kodas-NEW.woff") format("woff"),
+    url("../fonts/Solidus-kodas/Solidus-kodas-NEW.ttf") format("truetype"),
+    url("../fonts/Solidus-kodas/Solidus-kodas-NEW.svg#icons") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+[data-icon]:before {
+    font-family: "icons", sans-serif;
+    content: attr(data-icon);
+}

@@ -2,9 +2,9 @@
     <div class="w-100 bg-white rounded-xl py-9 px-12">
         <template v-if="step === 1">
             <h1 class="text-3xl font-semibold text-center">{{ 'Pirkti dovanų kuponą' }}</h1>
-            <h2 class="text-2xl text-center mt-1.5">{{ 'Tik 3 paprasti žingsniai!' }}</h2>
+            <h3 class="text-2xl mx-auto font-light text-center mt-1.5">{{ 'Tik 3 paprasti žingsniai!' }}</h3>
 
-            <ol class="mx-auto mt-8 flex md:w-7/12 sm:w-8/12 lg:px-4 md:px-2 sm:px-1 max-w-lg items-center justify-between">
+            <ol class="mx-auto mt-6 flex md:w-7/12 sm:w-8/12 lg:px-4 md:px-2 sm:px-1 max-w-lg items-center justify-between">
                 <li class="flex w-full items-center">
                     <div class="relative flex flex-col items-center">
                         <span class="flex h-[23px] w-[23px] shrink-0 items-center justify-center rounded-full"
@@ -52,17 +52,17 @@
                     <div>
                         <label for="select-button" class="mb-1 text-sm block font-semibold">
                             {{ 'Kupono vertė' }}
-                            <span class="font-normal text-black ps-1">{{ '(minimali vertė 20 Eur)' }}</span>
+                            <span class="font-normal text-[13px] text-black">{{ '(minimali vertė: 20 Eur)' }}</span>
                         </label>
                         <div class="relative">
-                            <button @click="toggle" :class="{'ring-[#6269ed]': selectOpen}" id="select-button"
-                                    class="flex w-full h-[53px] items-center text-sm justify-between rounded-md bg-white ring-1 ring-gray-200 text-base p-[16px]">
+                            <button @click="toggle" :class="{'border border-2 border-[#6269ed]': selectOpen}" id="select-button"
+                                    class="flex w-full h-[53px] items-center text-sm justify-between rounded-md bg-white ring-1 ring-gray-200 p-[16px]">
                                 <span>{{ purchase.value + ' €' }}</span>
                                 <template v-if="!selectOpen">
-                                    <font-awesome icon="chevron-down" size="1x"/>
+                                    <span data-icon="&#xe909;" class="pr-2 text-[12px]"></span>
                                 </template>
                                 <template v-if="selectOpen">
-                                    <font-awesome icon="chevron-up" size="1x"/>
+                                    <span data-icon="&#xe908;" class="pr-2 text-[12px]"></span>
                                 </template>
                             </button>
 
@@ -130,14 +130,7 @@
                 <div class="flex items-center justify-between flex-wrap sm:flex-nowrap mb-[14px] mt-[3px]">
                     <div class="text-base md:w-1/3 sm:w-full mt-4">
                         <a href="#" class="text-[#707070] group flex">
-                            <span class="mt-1 mr-2 group-hover:mt-1.5">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     width="16" height="13">
-                                    <image width="16" height="13"
-                                           xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAANCAYAAACgu+4kAAAAAXNSR0IArs4c6QAAALRJREFUOE9jZMACMjMzBdnZ2Xf///+/c+LEiauxqYGJMaJLwjSDxH/+/Ok6ffr090QbQKpmkMEoLigoKNjNwMBg/O/fP9dJkyadxWczhhcKCgpmMjAwhJKiGe4CqOa0////VzAxMRFlM9QF9xgLCwtd/v//D3I6yQBkITgM8vPzyxkZGTv+//8fRija0G2BByJFYQAzlRxDMBISqYZgGAByDSw9MDIymvT3998jOiXCFJKSFwBnGmVHpPZ/bQAAAABJRU5ErkJggg=="
-                                           data-name="icon-arrow-left"/>
-                                </svg>
-                            </span>
+                            <span data-icon="&#xe916;" class="mr-2 group-hover:font-semibold text-[15px]"></span>
                             <span class="font-medium text-[15px] group-hover:font-semibold">{{ ' Atgal' }}</span>
                         </a>
                     </div>
@@ -145,14 +138,7 @@
                         <div class="flex md:justify-end sm:justify-start mt-4 pr-5">
                             <button
                                 class="py-3 px-4 bg-[#e5e7ea] text-[#6269ed] text-[15px] font-medium rounded-lg flex">
-                                <span class="pr-1 my-auto">
-                                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="22" height="23" viewBox="18 15 22 23">
-                                       <image width="22" height="23"
-                                              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAXCAYAAAAP6L+eAAAAAXNSR0IArs4c6QAAAdJJREFUSEvdlcFtwjAUhn+3UunRMAIdAUYII8ChlxIORZ4ARoAJLDgQeumhjAAjlBHKCMVH6AFXfxIjkwZIxK2WEIjY/3vvf99zxLMy1QfgFbetzVzLhS8hQmWWABoA1jdoBwJozbRcOQ0KWwt0shHLBAmV+bTAYq7l+EQ4G62MKPeyagus/pFwV5m2uEJItuRCVrwo0xBAcMXjP2h1lRkw4JuWR7JiKso0Lxs8K1iaCg7SIzCxQBvAJv2Q/6oAFjug/67lNlc4VIYTODmZIGA803JIVvm/AIb+IKRnRgwUadnMFe4pUz8kGR0XS6XvbOoeaPpZuU205w7gkAwdy4U8DpX5AjCOtJyea2yoDCsNIi2f4sqyzWP0e6C6A9YuO+7ZA7W8bF2gFNWPSEvxRzjjMT2Lo1PYHTiXcU+ZwALLXOG08+w012amJbtP4W8L9C9dVGRZAINIy1quFXkZpf7VIy1bec+ZUAUgNatIy35h4fQgG7jYA0Pf6/RZfKf7fShEBTNIkaLAlgNxSL7rSPDkYPD3tFTGrnz3GvPvE3L+A0wrSQBOZsyye4McwS57yfv7Par6oqfMyAKDooK0YaZl58Kg8FoYxTCTwaLCPoaXzvwCEcc573bfdK8AAAAASUVORK5CYII="
-                                              data-name="icon-document-preview" transform="translate(18 15)"/>
-                                   </svg>
-                                </span>
+                                <span data-icon="&#xe91e;" class="mr-1 my-auto text-[22px]"></span>
                                 <span class="text-nowrap my-auto">{{ 'Kupono peržiūra' }}</span>
                             </button>
                         </div>
@@ -162,14 +148,7 @@
                                 <span class="my-auto">
                                     {{ 'Toliau' }}
                                 </span>
-                                <span class="pr-1 pt-0.5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px"
-                                         viewBox="0 0 24 24" fill="none">
-                                        <path
-                                            d="M9.71069 18.2929C10.1012 18.6834 10.7344 18.6834 11.1249 18.2929L16.0123 13.4006C16.7927 12.6195 16.7924 11.3537 16.0117 10.5729L11.1213 5.68254C10.7308 5.29202 10.0976 5.29202 9.70708 5.68254C9.31655 6.07307 9.31655 6.70623 9.70708 7.09676L13.8927 11.2824C14.2833 11.6729 14.2833 12.3061 13.8927 12.6966L9.71069 16.8787C9.32016 17.2692 9.32016 17.9023 9.71069 18.2929Z"
-                                            fill="#e5e7ea"/>
-                                    </svg>
-                                </span>
+                                <span data-icon="&#xe907;" class="ml-1 my-auto text-[11px]"></span>
                             </button>
                         </div>
                     </div>
