@@ -56,7 +56,7 @@
                         </label>
                         <div class="relative">
                             <button @click="toggle" :class="{'ring-[#6269ed]': selectOpen}" id="select-button"
-                                    class="flex w-full h-[53px] items-center justify-between rounded-md bg-white ring-1 ring-gray-200 text-base p-[16px]">
+                                    class="flex w-full h-[53px] items-center text-sm justify-between rounded-md bg-white ring-1 ring-gray-200 text-base p-[16px]">
                                 <span>{{ purchase.value + ' €' }}</span>
                                 <template v-if="!selectOpen">
                                     <font-awesome icon="chevron-down" size="1x"/>
