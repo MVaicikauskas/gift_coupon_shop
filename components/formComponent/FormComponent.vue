@@ -4,7 +4,7 @@
             <h1 class="text-3xl font-semibold text-center">{{ 'Pirkti dovanų kuponą' }}</h1>
             <h2 class="text-2xl text-center mt-1.5">{{ 'Tik 3 paprasti žingsniai!' }}</h2>
 
-            <ol class="mx-auto mt-8 flex md:w-6/12 sm:w-8/12 lg:px-4 md:px-2 sm:px-1 max-w-lg items-center justify-between">
+            <ol class="mx-auto mt-8 flex md:w-7/12 sm:w-8/12 lg:px-4 md:px-2 sm:px-1 max-w-lg items-center justify-between">
                 <li class="flex w-full items-center">
                     <div class="relative flex flex-col items-center">
                         <span class="flex h-[23px] w-[23px] shrink-0 items-center justify-center rounded-full"
@@ -57,6 +57,18 @@
                             <option value="40" class="text-black text-sm">{{ '40 €' }}</option>
                             <option value="50" class="text-black text-sm">{{ '50 €' }}</option>
                         </select>
+                      <div x-data="select" class="relative w-[30rem]" @click.outside="open = false">
+                        <button @click="toggle" :class="(open) && 'ring-blue-600'" class="flex w-full items-center justify-between rounded bg-white p-2 ring-1 ring-gray-300">
+                          <span x-text="(language == '') ? 'Choose language' : language"></span>
+                          <i class="fas fa-chevron-down text-xl"></i>
+                        </button>
+
+                        <ul class="z-2 absolute mt-1 w-full rounded bg-gray-50 ring-1 ring-gray-300" x-show="open">
+                          <li class="cursor-pointer select-none p-2 hover:bg-gray-200" @click="setLanguage('Python')">Python</li>
+                          <li class="cursor-pointer select-none p-2 hover:bg-gray-200" @click="setLanguage('PHP')">PHP</li>
+                          <li class="cursor-pointer select-none p-2 hover:bg-gray-200" @click="setLanguage('C#')">C#</li>
+                        </ul>
+                      </div>
                     </div>
                 </div>
 
