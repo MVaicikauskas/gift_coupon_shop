@@ -20,7 +20,10 @@ export default {
         }
     },
     mounted() {
-
+      // const runTime = useRuntimeConfig();
+      // const responseData = $fetch(runTime.public.apiBase + '/project_settings');
+      //
+      // console.log(responseData);
     },
     methods: {
 

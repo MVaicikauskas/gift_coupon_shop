@@ -5,6 +5,18 @@ export default defineNuxtConfig({
         '~/assets/css/custom.css',
     ],
     ssr: true,
+    routeRules: {
+        'api/**': {
+            cors: true,
+            proxy: { to: "http://127.0.0.1:8000/api/**" }
+        }
+    },
+    runtimeConfig: {
+        secretKey: '',
+        public: {
+            apiBase: 'http://127.0.0.1:8000/api'
+        }
+    },
     app: {
         head: {
             link: [{rel: 'stylesheet', href: 'https://static.fontawesome.com/css/fontawesome-app.css'}],
