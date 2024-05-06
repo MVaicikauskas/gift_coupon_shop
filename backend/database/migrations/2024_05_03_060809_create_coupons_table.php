@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('coupon_type')->default(0);
             $table->unsignedTinyInteger('coupon_status')->default(0);
             $table->string('code');
+            $table->dateTime('expires_at')->nullable();
             $table->timestamps();
         });
     }

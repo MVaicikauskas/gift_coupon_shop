@@ -31,7 +31,7 @@ class StoreTemplateRequest extends FormRequest
             Template::COL_TEMPLATE_KEY => 'required|string',
             Template::COL_IS_ACTIVE => 'required|integer',
             Template::COL_CONTENT => 'required|string',
-            Template::EXTRA_COL_PROJECT_ID => 'required|integer|projects,id',
+            Template::EXTRA_COL_PROJECT_ID => 'required|integer|exists:projects,id',
         ];
     }
 }

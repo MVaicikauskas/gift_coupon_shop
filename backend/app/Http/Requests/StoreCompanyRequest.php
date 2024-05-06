@@ -28,10 +28,11 @@ class StoreCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            Company::COL_NAME => 'required|string|unique',
-            Company::COL_EMAIL => 'required|email',
-            Company::COL_COMPANY_CODE => 'required|string|unique',
-            Company::COL_VAT => 'required|string|unique',
+            Company::COL_NAME => 'required|string|unique:companies,' . Company::COL_NAME,
+            Company::COL_EMAIL => 'required|email|unique:companies,' . Company::COL_EMAIL,
+            Company::COL_COMPANY_CODE => 'required|string|unique:companies,' . Company::COL_COMPANY_CODE,
+            Company::COL_VAT => 'required|string|unique:companies,' . Company::COL_VAT,
+            Company::EXTRA_COL_USER_ID => 'required|string|exists:users,id',
         ];
     }
 }

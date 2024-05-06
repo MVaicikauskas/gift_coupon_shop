@@ -12,11 +12,13 @@ use App\Repository\Eloquent\OrderRepository;
 use App\Repository\Eloquent\PaymentRepository;
 use App\Repository\Eloquent\ProjectRepository;
 use App\Repository\Eloquent\ProjectSettingRepository;
+use App\Repository\Eloquent\TemplateRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\OrderRepositoryInterface;
 use App\Repository\PaymentRepositoryInterface;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\ProjectSettingRepositoryInterface;
+use App\Repository\TemplateRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -41,6 +43,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProjectRepositoryInterface::class, ProjectRepository::class);
         $this->app->bind(ProjectSettingRepositoryInterface::class, ProjectSettingRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(TemplateRepositoryInterface::class, TemplateRepository::class);
     }
 
     /**

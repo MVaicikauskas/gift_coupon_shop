@@ -17,6 +17,7 @@ class Project extends Model
     const COL_NAME = 'name';
     const COL_IS_ACTIVE = 'is_active';
     const COL_CREATED_AT = 'created_at';
+    const EXTRA_COL_COMPANY_ID = 'company_id';
 
     // RELATIONS
     const RELATION_COMPANY = 'company';

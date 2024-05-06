@@ -18,7 +18,18 @@ class ProjectSetting extends Model
     //SETTINGS' KEYS
     const SETTING_KEY_VALUES = 'values';
     const SETTING_KEY_COUPON_TYPES = 'coupon_types';
+    const SETTING_KEY_EXPIRATION_TERM = 'expiration_term';
+    const SETTING_KEY_MONTONIO_ACCESS_KEY = 'montonio_access_key';
+    const SETTING_KEY_MONTONIO_SECRET_KEY = 'montonio_secret_key';
     // END SETTINGS' KEYS
+
+    public static $projectSettings = [
+        self::SETTING_KEY_VALUES,
+        self::SETTING_KEY_COUPON_TYPES,
+        self::SETTING_KEY_EXPIRATION_TERM,
+        self::SETTING_KEY_MONTONIO_ACCESS_KEY,
+        self::SETTING_KEY_MONTONIO_SECRET_KEY,
+    ];
 
     // RELATIONS
     const RELATION_PROJECT = 'project';

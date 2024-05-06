@@ -6,42 +6,38 @@ use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Http\Resources\CompaniesListResource;
 use App\Http\Resources\CompanyResource;
+use App\Interfaces\CompanyServiceInterface;
 use App\Models\Company;
 use App\Repository\CompanyRepositoryInterface;
 use App\Services\CompanyService;
-use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Collection;
 
 class CompanyController extends Controller
 {
     private readonly CompanyRepositoryInterface $companyRepository;
+    private readonly CompanyServiceInterface $companyService;
 
     /**
      * @param CompanyRepositoryInterface $companyRepository
+     * @param CompanyServiceInterface $companyService
      */
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    public function __construct(CompanyRepositoryInterface $companyRepository, CompanyServiceInterface $companyService)
     {
         $this->companyRepository = $companyRepository;
+        $this->companyService = $companyService;
 
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         /** @var Collection $companies */
         $companies = CompaniesListResource::collection($this->companyRepository->all());
 
-        // TODO later pass to front view
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return CompanyResource::collection($companies);
     }
 
     /**
@@ -52,7 +48,7 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request): void
     {
-        CompanyService::store($request->validated());
+        $this->companyService->store($request->validated());
     }
 
     /**
@@ -62,7 +58,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company): CompanyResource
     {
-        return CompanyService::prepareForExposure($company);
+        return $this->companyService->prepareForExposure($company);
     }
 
     /**
@@ -72,26 +68,26 @@ class CompanyController extends Controller
      */
     public function edit(Company $company): CompanyResource
     {
-        return CompanyService::prepareForExposure($company);
+        return $this->companyService->prepareForExposure($company);
     }
 
     /**
      * Update the specified resource in storage.
      * @param UpdateCompanyRequest $request
-     * @param Company $company
      * @return void
      * @throws \Throwable
      */
-    public function update(UpdateCompanyRequest $request, Company $company): void
+    public function update(UpdateCompanyRequest $request): void
     {
-        CompanyService::update($request->validated(), $company);
+        $this->companyService->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
+     * @throws \Throwable
      */
     public function destroy(Company $company): void
     {
-
+        $this->companyService->delete($company);
     }
 }

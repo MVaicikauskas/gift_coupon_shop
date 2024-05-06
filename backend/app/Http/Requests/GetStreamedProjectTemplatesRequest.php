@@ -24,6 +24,8 @@ class GetStreamedProjectTemplatesRequest extends FormRequest
     {
         return [
             ProjectSetting::EXTRA_COL_PROJECT_ID => 'required|integer|exists:projects,id',
+            'order' => 'nullable|array',
+            'order.*' => 'nullable',
         ];
     }
 }

@@ -2,76 +2,100 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DownloadCouponRequest;
+use App\Http\Requests\SendCouponRequest;
+use App\Http\Requests\StoreCouponRequest;
+use App\Http\Requests\UpdateCouponRequest;
+use App\Http\Resources\CouponResource;
+use App\Interfaces\CouponServiceInterface;
+use App\Models\Company;
 use App\Models\Coupon;
+use App\Models\User;
 use App\Repository\CouponRepositoryInterface;
+use App\Services\CouponService;
 use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    private $couponRepository;
+    private readonly CouponRepositoryInterface $couponRepository;
+    private readonly CouponServiceInterface $couponService;
 
     /**
      * @param CouponRepositoryInterface $couponRepository
+     * @param CouponServiceInterface $couponService;
      */
-    public function __construct(CouponRepositoryInterface $couponRepository)
+    public function __construct(CouponRepositoryInterface $couponRepository, CouponServiceInterface $couponService)
     {
         $this->couponRepository = $couponRepository;
+        $this->couponService = $couponService;
 
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
+     * @param StoreCouponRequest $request
+     * @return void
+     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(StoreCouponRequest $request): void
     {
-        //
+        $this->couponService->store($request->validated());
     }
 
     /**
      * Display the specified resource.
+     * @param Coupon $coupon
+     * @return CouponResource
      */
-    public function show(Coupon $coupon)
+    public function show(Coupon $coupon): CouponResource
     {
-        //
+        return $this->couponService->prepareForExposure($coupon);
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @param Coupon $coupon
+     * @return CouponResource
      */
-    public function edit(Coupon $coupon)
+    public function edit(Coupon $coupon): CouponResource
     {
-        //
+        return $this->couponService->prepareForExposure($coupon);
     }
 
     /**
      * Update the specified resource in storage.
+     * @param UpdateCouponRequest $request
+     * @param Coupon $coupon
+     * @return void
+     * @throws \Exception
      */
-    public function update(Request $request, Coupon $coupon)
+    public function update(UpdateCouponRequest $request): void
     {
-        //
+        $this->couponService->update($request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param Coupon $coupon
+     * @return void
+     * @throws \Throwable
      */
-    public function destroy(Coupon $coupon)
+    public function destroy(Coupon $coupon): void
     {
-        //
+        $this->couponService->destroy($coupon);
+    }
+
+    public function downloadCoupon(DownloadCouponRequest $request)
+    {
+        return $this->couponService->downloadCoupon($request->validated());
+    }
+
+    /**
+     * @param SendCouponRequest $request
+     * @return void
+     */
+    public function sendCoupon(SendCouponRequest $request): void
+    {
+        $this->couponService->sendCoupon($request->validated());
     }
 }

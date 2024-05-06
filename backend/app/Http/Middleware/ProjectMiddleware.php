@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiMiddleware
+class ProjectMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,7 +19,11 @@ class ApiMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! Str::contains($request->getRequestUri(), 'api/')) {
+        if (Str::contains($request->getRequestUri(), 'api/') && Str::contains($request->getRequestUri(), 'api/company/')) {
+            return $next($request);
+        }
+
+        if (! Str::contains($request->getRequestUri(), 'api/') && ! Str::contains($request->getRequestUri(), 'api/project/')) {
             return $next($request);
         }
 

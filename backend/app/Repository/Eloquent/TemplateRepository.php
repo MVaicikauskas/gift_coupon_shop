@@ -16,7 +16,7 @@ class TemplateRepository extends BaseRepository implements TemplateRepositoryInt
      *
      * @param Company $model
      */
-    public function __construct(Company $model)
+    public function __construct(Template $model)
     {
         parent::__construct($model);
     }

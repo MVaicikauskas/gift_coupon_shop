@@ -17,6 +17,7 @@ class Company extends Model
     const COL_VAT = 'vat';
     const COL_COMPANY_CODE = 'company_code';
     const COL_CREATED_AT = 'created_at';
+    const EXTRA_COL_USER_ID = 'user_id';
 
     // RELATIONS
     const RELATION_PROJECTS = 'projects';

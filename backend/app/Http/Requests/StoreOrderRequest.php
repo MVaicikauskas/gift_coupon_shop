@@ -52,7 +52,7 @@ class StoreOrderRequest extends FormRequest
             Order::COL_EMAIL => 'required|email',
             Order::COL_WISH => 'required|string',
             Order::COL_ACCEPT_PRIVACY_POLICY => 'required|accepted',
-            Order::COL_COUPON_TYPE => ['required', 'string',  Rule::in($couponTypes)],
+            Order::COL_COUPON_TYPE => ['required', 'integer',  Rule::in($couponTypes)],
             Order::COL_COUPON_DELIVERY=> ['required', 'integer',  Rule::in(Order::$deliveryTypes)],
             Order::COL_PICKUP_COORDINATES => 'required_if:' . Order::COL_COUPON_DELIVERY . ',' . Order::COUPON_DELIVERY_PHYSICAL_PICKUP,
             Order::EXTRA_COL_PROJECT_ID => 'required|exists:projects,id',

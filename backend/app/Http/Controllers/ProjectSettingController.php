@@ -3,87 +3,80 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GetProjectSettingsRequest;
+use App\Http\Requests\StoreProjectSettingsRequest;
+use App\Http\Requests\UpdateProjectSettingsRequest;
+use App\Http\Resources\ProjectSettingsResource;
+use App\Interfaces\ProjectSettingServiceInterface;
 use App\Models\ProjectSetting;
 use App\Repository\ProjectSettingRepositoryInterface;
 use App\Services\ProjectSettingService;
-use Database\Seeders\ProjectSettingsSeeder;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProjectSettingController extends Controller
 {
-    private $projectSettingRepository;
+    private readonly ProjectSettingRepositoryInterface $projectSettingRepository;
+    private readonly ProjectSettingServiceInterface $projectSettingService;
 
     /**
      * @param ProjectSettingRepositoryInterface $projectSettingRepository
+     * @param ProjectSettingServiceInterface $projectSettingService
      */
-    public function __construct(ProjectSettingRepositoryInterface $projectSettingRepository)
+    public function __construct(ProjectSettingRepositoryInterface $projectSettingRepository, ProjectSettingServiceInterface $projectSettingService)
     {
         $this->projectSettingRepository = $projectSettingRepository;
+        $this->projectSettingService = $projectSettingService;
 
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
+     * @param StoreProjectSettingsRequest $request
+     * @return void
+     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(StoreProjectSettingsRequest $request): void
     {
-        //
+        $this->projectSettingService->store($request->validated());
     }
 
     /**
      * Display the specified resource.
+     * @param ProjectSetting $projectSetting
+     * @return ProjectSettingsResource
      */
-    public function show(ProjectSetting $projectSetting)
+    public function show(ProjectSetting $projectSetting): ProjectSettingsResource
     {
-        //
+        return $this->projectSettingService->prepareForExposure($projectSetting);
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @param ProjectSetting $projectSetting
+     * @return ProjectSettingsResource
      */
-    public function edit(ProjectSetting $projectSetting)
+    public function edit(ProjectSetting $projectSetting): ProjectSettingsResource
     {
-        //
+        return $this->projectSettingService->prepareForExposure($projectSetting);
     }
 
     /**
      * Update the specified resource in storage.
+     * @param Request $request
+     * @return void
+     * @throws \Exception
      */
-    public function update(Request $request, ProjectSetting $projectSetting)
+    public function update(UpdateProjectSettingsRequest $request): void
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ProjectSetting $projectSetting)
-    {
-        //
+        $this->projectSettingService->update($request->validated());
     }
 
     /**
      * @param GetProjectSettingsRequest $request
-     * @return array
+     * @return ProjectSettingsResource
      */
-    public function getProjectSettings(GetProjectSettingsRequest $request): array
+    public function getProjectSettings(GetProjectSettingsRequest $request): ProjectSettingsResource
     {
-        return ProjectSettingService::getProjectSettings($request->validated(), $this->projectSettingRepository);
+        return $this->projectSettingService->getProjectSettings($request->validated(), $this->projectSettingRepository);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Project;
 use App\Models\ProjectSetting;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,9 +20,12 @@ class ProjectSettingsSeeder extends Seeder
             [
                 ProjectSetting::COL_ID => 1000,
                 ProjectSetting::COL_SETTINGS => json_encode([
-                    'values' => [10,20,30,40,50,70],
-                    'coupon_types' => ['classic', 'modern'],
-                ])
+                    ProjectSetting::SETTING_KEY_VALUES => [10,20,30,40,50,70],
+                    ProjectSetting::SETTING_KEY_COUPON_TYPES => [],
+                    ProjectSetting::SETTING_KEY_EXPIRATION_TERM => 180,
+                    ProjectSetting::SETTING_KEY_MONTONIO_ACCESS_KEY => encrypt('some key'),
+                    ProjectSetting::SETTING_KEY_MONTONIO_SECRET_KEY => encrypt('some key'),
+                ]),
             ]
         ];
 

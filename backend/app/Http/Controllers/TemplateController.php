@@ -5,33 +5,48 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GetStreamedProjectTemplatesRequest;
 use App\Http\Requests\GetTemplatesRequest;
 use App\Http\Requests\StoreTemplateRequest;
+use App\Http\Requests\UpdateTemplateRequest;
+use App\Interfaces\TemplateServiceInterface;
 use App\Models\Template;
 use App\Repository\TemplateRepositoryInterface;
 use App\Services\TemplateService;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TemplateController extends Controller
 {
     private readonly TemplateRepositoryInterface $templateRepository;
+    private readonly TemplateServiceInterface $templateService;
 
     /**
      * @param TemplateRepositoryInterface $templateRepository
+     * @param TemplateServiceInterface $templateService
      */
-    public function __construct(TemplateRepositoryInterface $templateRepository)
+    public function __construct(TemplateRepositoryInterface $templateRepository, TemplateServiceInterface $templateService)
     {
         $this->templateRepository = $templateRepository;
+        $this->templateService = $templateService;
 
     }
 
     /**
      * @param StoreTemplateRequest $request
      * @return void
+     * @throws \Exception
      */
     public function store(StoreTemplateRequest $request): void
     {
-        TemplateService::store($request->validated());
+        $this->templateService->store($request->validated());
+    }
+
+    /**
+     * @param UpdateTemplateRequest $request
+     * @return void
+     * @throws \Exception
+     */
+    public function update(UpdateTemplateRequest $request): void
+    {
+        $this->templateService->update($request->validated());
     }
 
     /**
@@ -40,7 +55,7 @@ class TemplateController extends Controller
      */
     public function getAllTemplates(GetTemplatesRequest $request): AnonymousResourceCollection
     {
-        return TemplateService::getAllTemplates($request->validated(), $this->templateRepository);
+        return $this->templateService->getAllTemplates($request->validated(), $this->templateRepository);
     }
 
     /**
@@ -49,11 +64,15 @@ class TemplateController extends Controller
      */
     public function getAllActiveTemplates(GetTemplatesRequest $request): AnonymousResourceCollection
     {
-        return TemplateService::getAllActiveTemplates($request->validated(), $this->templateRepository);
+        return $this->templateService->getAllActiveTemplates($request->validated(), $this->templateRepository);
     }
 
-    public function streamProjectTemplates(GetStreamedProjectTemplatesRequest $request): array
+    /**
+     * @param GetStreamedProjectTemplatesRequest $request
+     * @return JsonResponse
+     */
+    public function streamProjectTemplates(GetStreamedProjectTemplatesRequest $request): JsonResponse
     {
-        return TemplateService::streamProjectTemplates($request->validated(), $this->templateRepository);
+        return $this->templateService->streamProjectTemplates($request->validated(), $this->templateRepository);
     }
 }

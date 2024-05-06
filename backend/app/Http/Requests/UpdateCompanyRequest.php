@@ -28,11 +28,12 @@ class UpdateCompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            Company::COL_ID => 'required|integer|exists:companies,id',
-            Company::COL_NAME => 'required|string|unique',
+            Company::COL_ID => 'required|integer|exists:companies,' . Company::COL_ID,
+            Company::COL_NAME => 'required|string',
             Company::COL_EMAIL => 'required|email',
-            Company::COL_COMPANY_CODE => 'required|string|unique',
-            Company::COL_VAT => 'required|string|unique',
+            Company::COL_COMPANY_CODE => 'required|string',
+            Company::COL_VAT => 'required|string',
+            Company::EXTRA_COL_USER_ID => 'required|string|exists:users,id',
         ];
     }
 }

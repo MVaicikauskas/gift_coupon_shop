@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('recipient_name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->longText('wish');
             $table->boolean('accept_privacy_policy')->default(false);
             $table->integer('value');

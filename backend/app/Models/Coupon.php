@@ -20,8 +20,11 @@ class Coupon extends Model
     const COL_VALUE = 'value';
     const COL_COUPON_DELIVERY = 'coupon_delivery';
     const COL_COUPON_TYPE = 'coupon_type';
+    const COL_CODE = 'code';
+    const COL_EXPIRES_AT = 'expires_at';
     const COL_COUPON_STATUS = 'coupon_status';
     const COL_CREATED_AT = 'created_at';
+    const EXTRA_COL_PROJECT_ID = 'project_id';
 
     // COUPON DELIVERY TYPES
     public $deliveryTypes = [
@@ -36,10 +39,12 @@ class Coupon extends Model
 
     // RELATIONS
     const RELATION_ORDER = 'order';
+    const RELATION_PROJECT = 'project';
     // END RELATIONS
 
     // PIVOT TABLES
     const PIVOT_TABLE_COUPON_ORDER= 'coupon_order';
+    const PIVOT_TABLE_COUPON_PROJECT= 'coupon_project';
     // END PIVOT TABLES
 
     // FOREIGN KEYS
@@ -48,6 +53,7 @@ class Coupon extends Model
 
     // RELATED KEYS
     const RELATED_KEY_ORDER_ID = 'order_id';
+    const RELATED_KEY_PROJECT_ID = 'project_id';
     // END RELATED KEYS
 
     protected $casts = [
@@ -63,10 +69,17 @@ class Coupon extends Model
         self::COL_COUPON_DELIVERY,
         self::COL_COUPON_TYPE,
         self::COL_COUPON_STATUS,
+        self::COL_CODE,
+        self::COL_EXPIRES_AT,
     ];
 
     public function order(): BelongsToMany
     {
         return $this->belongsToMany(Order::class, self::PIVOT_TABLE_COUPON_ORDER, self::FOREIGN_KEY_COUPON_ID, self::RELATED_KEY_ORDER_ID);
+    }
+
+    public function project(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class, self::PIVOT_TABLE_COUPON_PROJECT, self::FOREIGN_KEY_COUPON_ID, self::RELATED_KEY_PROJECT_ID);
     }
 }

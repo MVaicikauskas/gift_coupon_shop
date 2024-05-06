@@ -14,6 +14,8 @@ class Payment extends Model
     const COL_BANK_KEY = 'bank_key';
     const COL_TRANSACTION_STATUS = 'transaction_status';
     const COL_CREATED_AT = 'created_at';
+    const EXTRA_COL_PROJECT_ID = 'project_id';
+    const EXTRA_COL_COMPANY_ID = 'company_id';
 
     // RELATIONS
     const RELATION_ORDER = 'order';

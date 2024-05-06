@@ -42,11 +42,13 @@ class Order extends Model
     // RELATIONS
     const RELATION_PAYMENT = 'payment';
     const RELATION_PROJECT = 'project';
+    const RELATION_COUPON= 'coupon';
     // END RELATIONS
 
     // PIVOT TABLES
     const PIVOT_TABLE_PROJECT_ORDER = 'project_order';
     const PIVOT_TABLE_PAYMENT_ORDER = 'payment_order';
+    const PIVOT_TABLE_COUPON_ORDER = 'coupon_order';
     // END PIVOT TABLES
 
     // FOREIGN KEYS
@@ -55,6 +57,7 @@ class Order extends Model
 
     // RELATED KEYS
     const RELATED_KEY_PAYMENT_ID = 'payment_id';
+    const RELATED_KEY_COUPON_ID = 'coupon_id';
     const RELATED_KEY_PROJECT_ID = 'project_id';
     // END RELATED KEYS
 
@@ -76,6 +79,11 @@ class Order extends Model
     public function payment(): BelongsToMany
     {
         return $this->belongsToMany(Payment::class, self::PIVOT_TABLE_PAYMENT_ORDER, self::FOREIGN_KEY_ORDER_ID, self::RELATED_KEY_PAYMENT_ID);
+    }
+
+    public function coupon(): BelongsToMany
+    {
+        return $this->belongsToMany(Coupon::class, self::PIVOT_TABLE_COUPON_ORDER, self::FOREIGN_KEY_ORDER_ID, self::RELATED_KEY_COUPON_ID);
     }
 
     public function project(): BelongsToMany
