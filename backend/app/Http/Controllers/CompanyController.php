@@ -2,31 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetCompanyRequest;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
-use App\Http\Resources\CompaniesListResource;
 use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyServiceInterface;
 use App\Models\Company;
-use App\Repository\CompanyRepositoryInterface;
-use App\Services\CompanyService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Collection;
 
 class CompanyController extends Controller
 {
-    private readonly CompanyRepositoryInterface $companyRepository;
     private readonly CompanyServiceInterface $companyService;
 
     /**
-     * @param CompanyRepositoryInterface $companyRepository
      * @param CompanyServiceInterface $companyService
      */
-    public function __construct(CompanyRepositoryInterface $companyRepository, CompanyServiceInterface $companyService)
+    public function __construct(CompanyServiceInterface $companyService)
     {
-        $this->companyRepository = $companyRepository;
         $this->companyService = $companyService;
-
     }
 
     /**
@@ -34,10 +27,7 @@ class CompanyController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        /** @var Collection $companies */
-        $companies = CompaniesListResource::collection($this->companyRepository->all());
-
-        return CompanyResource::collection($companies);
+        return $this->companyService->getCompaniesList();
     }
 
     /**
@@ -53,12 +43,12 @@ class CompanyController extends Controller
 
     /**
      * Display the specified resource.
-     * @param Company $company
+     * @param GetCompanyRequest $request)
      * @return CompanyResource
      */
-    public function show(Company $company): CompanyResource
+    public function show(GetCompanyRequest $request): CompanyResource
     {
-        return $this->companyService->prepareForExposure($company);
+        return $this->companyService->prepareForExposure($request->validated([Company::COL_ID]));
     }
 
     /**

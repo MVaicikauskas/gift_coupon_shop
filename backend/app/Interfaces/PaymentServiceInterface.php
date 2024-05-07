@@ -4,7 +4,6 @@ namespace App\Interfaces;
 
 use App\Http\Resources\PaymentResource;
 use App\Models\Payment;
-use App\Repository\PaymentRepositoryInterface;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 interface PaymentServiceInterface
@@ -17,10 +16,10 @@ interface PaymentServiceInterface
     public function store(array $data): void;
 
     /**
-     * @param Payment $payment
+     * @param int $paymentId
      * @return PaymentResource
      */
-    public function prepareForExposure(Payment $payment): PaymentResource;
+    public function prepareForExposure(int $paymentId): PaymentResource;
 
     /**
      * @param array $data
@@ -38,21 +37,27 @@ interface PaymentServiceInterface
 
     /**
      * @param array $data
+     * @param string $locale
+     * @return string | null
+     */
+    public function pay(array $data, string $locale): ?string;
+
+    /**
+     * @param array $data
+     * @return AnonymousResourceCollection
+     */
+    public function getProjectPayments(array $data): AnonymousResourceCollection;
+
+    /**
+     * @param array $data
+     * @return AnonymousResourceCollection
+     */
+    public function getCompanyPayments(array $data): AnonymousResourceCollection;
+
+    /**
+     * @param array $data
      * @return void
+     * @throws \Exception
      */
-    public function pay(array $data): void;
-
-    /**
-     * @param array $data
-     * @param PaymentRepositoryInterface $paymentRepository
-     * @return AnonymousResourceCollection
-     */
-    public function getProjectPayments(array $data, PaymentRepositoryInterface $paymentRepository): AnonymousResourceCollection;
-
-    /**
-     * @param array $data
-     * @param PaymentRepositoryInterface $paymentRepository
-     * @return AnonymousResourceCollection
-     */
-    public function getCompanyPayments(array $data, PaymentRepositoryInterface $paymentRepository): AnonymousResourceCollection;
+    public function confirmPaidOrder(array $data): void;
 }

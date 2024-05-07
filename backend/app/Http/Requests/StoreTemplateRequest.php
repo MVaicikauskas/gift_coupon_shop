@@ -2,12 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Order;
-use App\Models\Project;
-use App\Models\ProjectSetting;
 use App\Models\Template;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StoreTemplateRequest extends FormRequest
 {

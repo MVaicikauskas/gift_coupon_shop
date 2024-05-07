@@ -22,6 +22,7 @@ class Order extends Model
     const COL_COUPON_TYPE = 'coupon_type';
     const COL_COUPON_STATUS = 'coupon_status';
     const COL_PICKUP_COORDINATES = 'pickup_coordinates';
+    const COL_SELECTED_BANK= 'selected_bank';
     const COL_CREATED_AT = 'created_at';
 
     // EXTRA CONSTANTS
@@ -74,6 +75,8 @@ class Order extends Model
         self::COL_COUPON_DELIVERY,
         self::COL_COUPON_TYPE,
         self::COL_COUPON_STATUS,
+        self::COL_PICKUP_COORDINATES,
+        self::COL_SELECTED_BANK,
     ];
 
     public function payment(): BelongsToMany

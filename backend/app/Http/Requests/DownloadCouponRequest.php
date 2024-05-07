@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\Coupon;
-use App\Models\ProjectSetting;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DownloadCouponRequest extends FormRequest

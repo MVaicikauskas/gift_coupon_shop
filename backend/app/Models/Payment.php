@@ -11,11 +11,27 @@ class Payment extends Model
     use HasFactory;
 
     const COL_ID = 'id';
-    const COL_BANK_KEY = 'bank_key';
+    const COL_BANK_NAME = 'bank_name';
+    const COL_BANK_CODE = 'bank_code';
     const COL_TRANSACTION_STATUS = 'transaction_status';
+    const COL_PAYMENT_METHOD = 'payment_method';
     const COL_CREATED_AT = 'created_at';
     const EXTRA_COL_PROJECT_ID = 'project_id';
     const EXTRA_COL_COMPANY_ID = 'company_id';
+
+    // TRANSACTION STATUSES
+    const TRANSACTION_STATUS_ONGOING = 0;
+    const TRANSACTION_STATUS_PAID = 1;
+    const TRANSACTION_STATUS_CANCELLED = 3;
+    const TRANSACTION_STATUS_FAILED = 4;
+
+    public static array $transactionStatuses = [
+        self::TRANSACTION_STATUS_ONGOING,
+        self::TRANSACTION_STATUS_PAID,
+        self::TRANSACTION_STATUS_CANCELLED,
+        self::TRANSACTION_STATUS_FAILED
+    ];
+    // END TRANSACTION STATUSES
 
     // RELATIONS
     const RELATION_ORDER = 'order';
@@ -38,8 +54,10 @@ class Payment extends Model
     ];
 
     protected $fillable = [
-        self::COL_BANK_KEY,
+        self::COL_BANK_NAME,
+        self::COL_BANK_CODE,
         self::COL_TRANSACTION_STATUS,
+        self::COL_PAYMENT_METHOD,
     ];
 
     public function order(): BelongsToMany

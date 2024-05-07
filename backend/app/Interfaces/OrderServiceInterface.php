@@ -9,16 +9,16 @@ interface OrderServiceInterface
 {
     /**
      * @param array $data
-     * @return void
+     * @return int | null
      * @throws \Exception
      */
-    public function store(array $data): void;
+    public function store(array $data): int |null;
 
     /**
-     * @param Order $order
+     * @param int $orderId
      * @return OrderResource
      */
-    public function prepareForExposure(Order $order): OrderResource;
+    public function prepareForExposure(int $orderId): OrderResource;
 
     /**
      * @param array $data

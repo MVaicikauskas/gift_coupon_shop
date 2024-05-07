@@ -20,8 +20,10 @@ class PaymentResource extends JsonResource
 
         return $payment->only([
             Payment::COL_ID,
-            Payment::COL_BANK_KEY,
+            Payment::COL_BANK_NAME,
+            Payment::COL_BANK_CODE,
             Payment::COL_TRANSACTION_STATUS,
+            Payment::COL_PAYMENT_METHOD,
         ]);
     }
 }

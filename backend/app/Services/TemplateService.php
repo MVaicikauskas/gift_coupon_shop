@@ -19,6 +19,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TemplateService implements TemplateServiceInterface
 {
+    private readonly TemplateRepositoryInterface $templateRepository;
+
+    /**
+     * @param TemplateRepositoryInterface $templateRepository
+     */
+    public function __construct(TemplateRepositoryInterface $templateRepository)
+    {
+        $this->templateRepository = $templateRepository;
+    }
+
     /**
      * @param array $data
      * @return void
@@ -84,7 +94,7 @@ class TemplateService implements TemplateServiceInterface
         DB::beginTransaction();
 
         try {
-            Template::findOrFail($data[Template::COL_ID])->update([
+            $this->templateRepository->getModelById($data[Template::COL_ID])->update([
                 Template::COL_CONTENT => $data[Template::COL_CONTENT],
                 Template::COL_TEMPLATE_KEY => $data[Template::COL_TEMPLATE_KEY],
                 Template::COL_IS_ACTIVE => $data[Template::COL_IS_ACTIVE],
@@ -99,34 +109,51 @@ class TemplateService implements TemplateServiceInterface
     }
 
     /**
-     * @param array $data
-     * @param TemplateRepositoryInterface $templateRepository
-     * @return AnonymousResourceCollection
+     * @param Template $template
+     * @return void
+     * @throws \Throwable
      */
-    public function getAllTemplates(array $data, TemplateRepositoryInterface $templateRepository): AnonymousResourceCollection
+    public function destroy(Template $template): void
     {
-        return TemplatesListResource::collection($templateRepository->allProjectTemplates($data[Template::EXTRA_COL_PROJECT_ID]));
+        DB::beginTransaction();
+
+        try {
+            $template->deleteOrFail();
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollback();
+            Log::error($e->getMessage());
+            throw $e;
+        }
     }
 
     /**
      * @param array $data
-     * @param TemplateRepositoryInterface $templateRepository
      * @return AnonymousResourceCollection
      */
-    public function getAllActiveTemplates(array $data, TemplateRepositoryInterface $templateRepository): AnonymousResourceCollection
+    public function getAllTemplates(array $data): AnonymousResourceCollection
     {
-        return TemplatesListResource::collection($templateRepository->allActiveProjectTemplates($data[Template::EXTRA_COL_PROJECT_ID]));
+        return TemplatesListResource::collection($this->templateRepository->allProjectTemplates($data[Template::EXTRA_COL_PROJECT_ID]));
     }
 
     /**
      * @param array $data
-     * @param TemplateRepositoryInterface $templateRepository
+     * @return AnonymousResourceCollection
+     */
+    public function getAllActiveTemplates(array $data,): AnonymousResourceCollection
+    {
+        return TemplatesListResource::collection($this->templateRepository->allActiveProjectTemplates($data[Template::EXTRA_COL_PROJECT_ID]));
+    }
+
+    /**
+     * @param array $data
      * @return JsonResponse
      */
-    public function streamProjectTemplates(array $data, TemplateRepositoryInterface $templateRepository): JsonResponse
+    public function streamProjectTemplates(array $data): JsonResponse
     {
         /** @var Collection $templates */
-        $templates = $templateRepository->allActiveProjectTemplates($data[Template::EXTRA_COL_PROJECT_ID]);
+        $templates = $this->templateRepository->allActiveProjectTemplates($data[Template::EXTRA_COL_PROJECT_ID]);
 
         /** @var array $pdfs */
         $pdfs = [];

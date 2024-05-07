@@ -3,30 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GetCompanyProjectsRequest;
+use App\Http\Requests\GetProjectRequest;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Interfaces\ProjectServiceInterface;
 use App\Models\Project;
-use App\Repository\ProjectRepositoryInterface;
-use App\Services\ProjectService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ProjectController extends Controller
 {
-    private readonly ProjectRepositoryInterface $projectRepository;
     private readonly ProjectServiceInterface $projectService;
 
     /**
-     * @param ProjectRepositoryInterface $projectRepository
      * @param ProjectServiceInterface $projectService
      */
-    public function __construct(ProjectRepositoryInterface $projectRepository, ProjectServiceInterface $projectService)
+    public function __construct(ProjectServiceInterface $projectService)
     {
-        $this->projectRepository = $projectRepository;
         $this->projectService = $projectService;
-
     }
 
     /**
@@ -42,22 +37,12 @@ class ProjectController extends Controller
 
     /**
      * Display the specified resource.
-     * @param Project $project
+     * @param GetProjectRequest $request
      * @return ProjectResource
      */
-    public function show(Project $project): ProjectResource
+    public function show(GetProjectRequest $request): ProjectResource
     {
-        return $this->projectService->prepareForExposure($project);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param Project $project
-     * @return ProjectResource
-     */
-    public function edit(Project $project): ProjectResource
-    {
-        return $this->projectService->prepareForExposure($project);
+        return $this->projectService->prepareForExposure($request->validated([Project::COL_ID]));
     }
 
     /**
@@ -88,6 +73,6 @@ class ProjectController extends Controller
      */
     public function getCompanyProjects(GetCompanyProjectsRequest $request): AnonymousResourceCollection
     {
-        return $this->projectService->getCompanyProjects($request->validated(), $this->projectRepository);
+        return $this->projectService->getCompanyProjects($request->validated());
     }
 }

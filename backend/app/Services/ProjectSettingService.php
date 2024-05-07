@@ -6,12 +6,21 @@ use App\Http\Resources\ProjectSettingsResource;
 use App\Interfaces\ProjectSettingServiceInterface;
 use App\Models\ProjectSetting;
 use App\Repository\ProjectSettingRepositoryInterface;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProjectSettingService implements ProjectSettingServiceInterface
 {
+    private readonly ProjectSettingRepositoryInterface $projectSettingRepository;
+
+    /**
+     * @param ProjectSettingRepositoryInterface $projectSettingRepository
+     */
+    public function __construct(ProjectSettingRepositoryInterface $projectSettingRepository)
+    {
+        $this->projectSettingRepository = $projectSettingRepository;
+    }
+
     /**
      * @param array $data
      * @return void
@@ -58,12 +67,12 @@ class ProjectSettingService implements ProjectSettingServiceInterface
     }
 
     /**
-     * @param ProjectSetting $projectSetting
+     * @param int $projectSettingId
      * @return ProjectSettingsResource
      */
-    public function prepareForExposure(ProjectSetting $projectSetting): ProjectSettingsResource
+    public function prepareForExposure(int $projectSettingId): ProjectSettingsResource
     {
-        return new ProjectSettingsResource($projectSetting);
+        return new ProjectSettingsResource($this->projectSettingRepository->getModelById($projectSettingId));
     }
 
     /**
@@ -97,7 +106,7 @@ class ProjectSettingService implements ProjectSettingServiceInterface
                 }
             }
 
-            ProjectSetting::findOrFail($data[ProjectSetting::COL_ID])->update([
+            $this->projectSettingRepository->getModelById($data[ProjectSetting::COL_ID])->update([
                 ProjectSetting::COL_SETTINGS => json_encode($settings),
             ]);
 
@@ -111,11 +120,10 @@ class ProjectSettingService implements ProjectSettingServiceInterface
 
     /**
      * @param array $data
-     * @param ProjectSettingRepositoryInterface $projectSettingRepository
      * @return ProjectSettingsResource
      */
-    public function getProjectSettings(array $data, ProjectSettingRepositoryInterface $projectSettingRepository): ProjectSettingsResource
+    public function getProjectSettings(array $data): ProjectSettingsResource
     {
-        return new ProjectSettingsResource($projectSettingRepository->getModelById($data[ProjectSetting::EXTRA_COL_PROJECT_ID]));
+        return new ProjectSettingsResource($this->projectSettingRepository->getModelById($data[ProjectSetting::EXTRA_COL_PROJECT_ID]));
     }
 }

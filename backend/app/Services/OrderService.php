@@ -4,18 +4,34 @@ namespace App\Services;
 
 use App\Http\Resources\OrderResource;
 use App\Interfaces\OrderServiceInterface;
+use App\Interfaces\PaymentServiceInterface;
 use App\Models\Order;
+use App\Models\Payment;
+use App\Repository\OrderRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class OrderService implements OrderServiceInterface
 {
+    private readonly OrderRepositoryInterface $orderRepository;
+    private readonly PaymentServiceInterface $paymentService;
+
+    /**
+     * @param OrderRepositoryInterface $orderRepository
+     */
+    public function __construct(OrderRepositoryInterface $orderRepository, PaymentServiceInterface $paymentService)
+    {
+        $this->orderRepository = $orderRepository;
+        $this->paymentService = $paymentService;
+    }
+
     /**
      * @param array $data
-     * @return void
+     * @param bool $returnId
+     * @return int|null
      * @throws \Exception
      */
-    public function store(array $data): void
+    public function store(array $data, bool $returnId = false): ?int
     {
         DB::beginTransaction();
 
@@ -29,27 +45,41 @@ class OrderService implements OrderServiceInterface
             $order->{Order::COL_COUPON_TYPE} = intval($data[Order::COL_COUPON_TYPE]);
             $order->{Order::COL_COUPON_DELIVERY} = intval($data[Order::COL_COUPON_DELIVERY]);
             $order->{Order::COL_PICKUP_COORDINATES} = $data[Order::COL_PICKUP_COORDINATES];
+            $order->{Order::COL_SELECTED_BANK} = $data[Order::COL_SELECTED_BANK];
             $order->save();
 
             $order->{Order::RELATION_PROJECT}()->attach($data[Order::EXTRA_COL_PROJECT_ID]);
 
-            // TODO might be necessary to add here payment process and after successful payment create new coupon and pass it to front
+            //Create payment with transaction status = Payment::TRANSACTION_STATUS_ONGOING
+            $paymentData = [
+                Payment::COL_BANK_NAME => null,
+                Payment::COL_BANK_CODE => $order->{Order::COL_SELECTED_BANK},
+                Payment::COL_TRANSACTION_STATUS => Payment::TRANSACTION_STATUS_ONGOING,
+                Payment::COL_PAYMENT_METHOD => null,
+                Payment::RELATED_KEY_ORDER_ID => $order->{Order::COL_ID},
+            ];
 
+            $this->paymentService->store($paymentData);
+            if ($returnId) {
+                return $order->{Order::COL_ID};
+            }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
             Log::error($e->getMessage());
             throw $e;
         }
+
+        return null;
     }
 
     /**
-     * @param Order $order
+     * @param int $orderId
      * @return OrderResource
      */
-    public function prepareForExposure(Order $order): OrderResource
+    public function prepareForExposure(int $orderId): OrderResource
     {
-        return new OrderResource($order);
+        return new OrderResource($this->orderRepository->getModelById($orderId));
     }
 
     /**
@@ -62,7 +92,7 @@ class OrderService implements OrderServiceInterface
         DB::beginTransaction();
 
         try {
-            Order::findOrFail($data[Order::COL_ID])->update([
+            $this->orderRepository->getModelById($data[Order::COL_ID])->update([
                 Order::COL_RECIPIENT_NAME => $data[Order::COL_RECIPIENT_NAME],
                 Order::COL_VALUE => $data[Order::COL_VALUE],
                 Order::COL_EMAIL => $data[Order::COL_EMAIL],
@@ -71,6 +101,7 @@ class OrderService implements OrderServiceInterface
                 Order::COL_COUPON_TYPE => intval($data[Order::COL_COUPON_TYPE]),
                 Order::COL_COUPON_DELIVERY => intval($data[Order::COL_COUPON_DELIVERY]),
                 Order::COL_PICKUP_COORDINATES => $data[Order::COL_PICKUP_COORDINATES],
+                Order::COL_SELECTED_BANK => $data[Order::COL_SELECTED_BANK],
             ]);
 
             DB::commit();

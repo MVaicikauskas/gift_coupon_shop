@@ -24,6 +24,8 @@ class Project extends Model
     const RELATION_SETTINGS = 'settings';
     const RELATION_ORDERS = 'orders';
     const RELATION_TEMPLATES = 'templates';
+    const RELATION_FAQS = 'faqs';
+    const RELATION_PAYMENT_METHOD = 'paymentMethod';
     // END RELATIONS
 
     // PIVOT TABLES
@@ -31,6 +33,8 @@ class Project extends Model
     const PIVOT_TABLE_PROJECT_PROJECT_SETTING= 'project_project_setting';
     const PIVOT_TABLE_PROJECT_ORDER = 'project_order';
     const PIVOT_TABLE_PROJECT_TEMPLATE = 'project_template';
+    const PIVOT_TABLE_PROJECT_FAQ = 'project_faq';
+    const PIVOT_TABLE_PROJECT_PAYMENT_METHOD = 'project_payment_method';
     // END PIVOT TABLES
 
     // FOREIGN KEYS
@@ -42,6 +46,8 @@ class Project extends Model
     const RELATED_KEY_PROJECT_SETTING_ID = 'project_setting_id';
     const RELATED_KEY_ORDER_ID = 'order_id';
     const RELATED_KEY_TEMPLATE_ID = 'template_id';
+    const RELATED_KEY_FAQ_ID = 'faq_id';
+    const RELATED_KEY_PAYMENT_METHOD_ID = 'payment_method_id';
     // END RELATED KEYS
 
     protected $casts = [
@@ -71,5 +77,15 @@ class Project extends Model
     public function templates(): belongsToMany
     {
         return $this->belongsToMany(Template::class, self::PIVOT_TABLE_PROJECT_TEMPLATE, self::FOREIGN_KEY_PROJECT_ID, self::RELATED_KEY_TEMPLATE_ID);
+    }
+
+    public function faqs(): belongsToMany
+    {
+        return $this->belongsToMany(Faq::class, self::PIVOT_TABLE_PROJECT_FAQ, self::FOREIGN_KEY_PROJECT_ID, self::RELATED_KEY_FAQ_ID);
+    }
+
+    public function paymentMethod(): belongsToMany
+    {
+        return $this->belongsToMany(PaymentMethod::class, self::PIVOT_TABLE_PROJECT_PAYMENT_METHOD, self::FOREIGN_KEY_PROJECT_ID, self::RELATED_KEY_PAYMENT_METHOD_ID);
     }
 }

@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('bank_key');
+            $table->string('bank_name')->nullable();
+            $table->string('bank_code')->nullable();
+            $table->string('payment_method')->nullable();
             $table->unsignedTinyInteger('transaction_status')->default(0);
             $table->timestamps();
         });

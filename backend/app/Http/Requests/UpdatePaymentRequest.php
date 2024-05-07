@@ -2,14 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Company;
-use App\Models\Coupon;
-use App\Models\Order;
 use App\Models\Payment;
-use App\Models\Project;
-use App\Models\ProjectSetting;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdatePaymentRequest extends FormRequest
 {
@@ -31,8 +25,10 @@ class UpdatePaymentRequest extends FormRequest
     {
         return [
             Payment::COL_ID => 'required|integer|exists:payments,' . Payment::COL_ID,
-            Payment::COL_BANK_KEY => 'required|string',
-            Payment::COL_TRANSACTION_STATUS => 'required|integer',
+            Payment::COL_BANK_NAME => 'required|string',
+            Payment::COL_BANK_CODE => 'required|string',
+            Payment::COL_TRANSACTION_STATUS => 'required', 'integer',
+            Payment::COL_PAYMENT_METHOD => 'required|string',
         ];
     }
 }

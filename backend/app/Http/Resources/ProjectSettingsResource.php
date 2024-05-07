@@ -25,11 +25,14 @@ class ProjectSettingsResource extends JsonResource
             ProjectSetting::COL_SETTINGS,
         ]);
 
-        $projectSettings[ProjectSetting::COL_SETTINGS] = json_decode($projectSettings[ProjectSetting::COL_SETTINGS]);
-        $projectSettings[ProjectSetting::COL_SETTINGS]->{ProjectSetting::SETTING_KEY_MONTONIO_ACCESS_KEY} =
-            decrypt($projectSettings[ProjectSetting::COL_SETTINGS]->{ProjectSetting::SETTING_KEY_MONTONIO_ACCESS_KEY});
-        $projectSettings[ProjectSetting::COL_SETTINGS]->{ProjectSetting::SETTING_KEY_MONTONIO_SECRET_KEY} =
-            decrypt($projectSettings[ProjectSetting::COL_SETTINGS]->{ProjectSetting::SETTING_KEY_MONTONIO_SECRET_KEY});
+        if (is_string($projectSettings[ProjectSetting::COL_SETTINGS])) {
+            $projectSettings[ProjectSetting::COL_SETTINGS] = json_decode($projectSettings[ProjectSetting::COL_SETTINGS]);
+        }
+
+        $projectSettings[ProjectSetting::COL_SETTINGS][ProjectSetting::SETTING_KEY_MONTONIO_ACCESS_KEY] =
+            decrypt($projectSettings[ProjectSetting::COL_SETTINGS][ProjectSetting::SETTING_KEY_MONTONIO_ACCESS_KEY]);
+        $projectSettings[ProjectSetting::COL_SETTINGS][ProjectSetting::SETTING_KEY_MONTONIO_SECRET_KEY] =
+            decrypt($projectSettings[ProjectSetting::COL_SETTINGS][ProjectSetting::SETTING_KEY_MONTONIO_SECRET_KEY]);
 
         return $projectSettings;
     }

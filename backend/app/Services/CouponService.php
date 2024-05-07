@@ -10,11 +10,22 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Project;
 use App\Models\ProjectSetting;
+use App\Repository\CouponRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CouponService implements CouponServiceInterface
 {
+    private readonly CouponRepositoryInterface $couponRepository;
+
+    /**
+     * @param CouponRepositoryInterface $couponRepository
+     */
+    public function __construct(CouponRepositoryInterface $couponRepository)
+    {
+        $this->couponRepository = $couponRepository;
+    }
+
     /**
      * @param array $data
      * @return void
@@ -80,12 +91,12 @@ class CouponService implements CouponServiceInterface
     }
 
     /**
-     * @param Coupon $coupon
+     * @param int $couponId
      * @return CouponResource
      */
-    public function prepareForExposure(Coupon $coupon): CouponResource
+    public function prepareForExposure(int $couponId): CouponResource
     {
-        return new CouponResource($coupon);
+        return new CouponResource($this->couponRepository->getModelById($couponId));
     }
 
     /**
@@ -99,7 +110,7 @@ class CouponService implements CouponServiceInterface
 
         try {
 
-            Coupon::findOrFail($data[Coupon::COL_ID])->update([
+            $this->couponRepository->getModelById($data[Coupon::COL_ID])->update([
                 Coupon::COL_RECIPIENT_NAME => $data[Coupon::COL_RECIPIENT_NAME],
                 Coupon::COL_VALUE => $data[Coupon::COL_VALUE],
                 Coupon::COL_EMAIL => $data[Coupon::COL_EMAIL],

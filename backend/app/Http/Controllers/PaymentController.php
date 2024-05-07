@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GetCompanyPaymentsRequest;
+use App\Http\Requests\GetPaymentRequest;
 use App\Http\Requests\GetProjectPaymentsRequest;
 use App\Http\Requests\OrderPaymentRequest;
 use App\Http\Requests\StorePaymentRequest;
@@ -10,24 +11,20 @@ use App\Http\Requests\UpdatePaymentRequest;
 use App\Http\Resources\PaymentResource;
 use App\Interfaces\PaymentServiceInterface;
 use App\Models\Payment;
-use App\Repository\PaymentRepositoryInterface;
-use App\Services\PaymentService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 
 class PaymentController extends Controller
 {
-    private readonly PaymentRepositoryInterface $paymentRepository;
     private readonly PaymentServiceInterface $paymentService;
 
     /**
-     * @param PaymentRepositoryInterface $paymentRepository
      * @param PaymentServiceInterface $paymentService
      */
-    public function __construct(PaymentRepositoryInterface $paymentRepository, PaymentServiceInterface $paymentService)
+    public function __construct(PaymentServiceInterface $paymentService)
     {
-        $this->paymentRepository = $paymentRepository;
         $this->paymentService = $paymentService;
-
     }
 
     /**
@@ -43,22 +40,12 @@ class PaymentController extends Controller
 
     /**
      * Display the specified resource.
-     * @param Payment $payment
+     * @param GetPaymentRequest $request
      * @return PaymentResource
      */
-    public function show(Payment $payment): PaymentResource
+    public function show(GetPaymentRequest $request): PaymentResource
     {
-        return $this->paymentService->prepareForExposure($payment);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param Payment $payment
-     * @return PaymentResource
-     */
-    public function edit(Payment $payment): PaymentResource
-    {
-        return $this->paymentService->prepareForExposure($payment);
+        return $this->paymentService->prepareForExposure($request->validated([Payment::COL_ID]));
     }
 
     /**
@@ -83,9 +70,13 @@ class PaymentController extends Controller
         $this->paymentService->destroy($payment);
     }
 
-    public function pay(OrderPaymentRequest $request)
+    /**
+     * @param OrderPaymentRequest $request
+     * @return string | null
+     */
+    public function pay(OrderPaymentRequest $request): ?string
     {
-        return $this->paymentService->pay($request->validated());
+        return $this->paymentService->pay($request->validated(), $request->getLocale());
     }
 
     /**
@@ -94,7 +85,7 @@ class PaymentController extends Controller
      */
     public function getProjectPayments(GetProjectPaymentsRequest $request): AnonymousResourceCollection
     {
-        return $this->paymentService->getProjectPayments($request->validated(), $this->paymentRepository);
+        return $this->paymentService->getProjectPayments($request->validated());
     }
 
     /**
@@ -103,6 +94,17 @@ class PaymentController extends Controller
      */
     public function getCompanyPayments(GetCompanyPaymentsRequest $request): AnonymousResourceCollection
     {
-        return $this->paymentService->getCompanyPayments($request->validated(), $this->paymentRepository);
+        return $this->paymentService->getCompanyPayments($request->validated());
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     * @throws \Exception
+     */
+    public function confirmPaidOrder(Request $request): void
+    {
+        Log::info('confirm paid order', ['request' => $request]);
+        $this->paymentService->confirmPaidOrder((array)$request);
     }
 }

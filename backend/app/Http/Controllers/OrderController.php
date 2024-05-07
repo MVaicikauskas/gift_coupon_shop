@@ -2,27 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetOrderRequest;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Interfaces\OrderServiceInterface;
 use App\Models\Order;
-use App\Repository\OrderRepositoryInterface;
-use App\Services\OrderService;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    private readonly OrderRepositoryInterface $orderRepository;
     private readonly OrderServiceInterface $orderService;
 
     /**
-     * @param OrderRepositoryInterface $orderRepository
      * @param OrderServiceInterface $orderService
      */
-    public function __construct(OrderRepositoryInterface $orderRepository, OrderServiceInterface $orderService)
+    public function __construct(OrderServiceInterface $orderService)
     {
-        $this->orderRepository = $orderRepository;
         $this->orderService = $orderService;
     }
 
@@ -39,22 +34,12 @@ class OrderController extends Controller
 
     /**
      * Display the specified resource.
-     * @param Order $orders
+     * @param GetOrderRequest $request
      * @return OrderResource
      */
-    public function show(Order $orders): OrderResource
+    public function show(GetOrderRequest $request): OrderResource
     {
-        return $this->orderService->prepareForExposure($orders);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param Order $orders
-     * @return OrderResource
-     */
-    public function edit(Order $orders): OrderResource
-    {
-        return $this->orderService->prepareForExposure($orders);
+        return $this->orderService->prepareForExposure($request->validated([Order::COL_ID]));
     }
 
     /**

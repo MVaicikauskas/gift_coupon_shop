@@ -2,13 +2,7 @@
 
 namespace App\Interfaces;
 
-use App\Http\Resources\PaymentResource;
 use App\Http\Resources\ProjectSettingsResource;
-use App\Models\Payment;
-use App\Models\ProjectSetting;
-use App\Repository\PaymentRepositoryInterface;
-use App\Repository\ProjectSettingRepositoryInterface;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 interface ProjectSettingServiceInterface
 {
@@ -20,10 +14,10 @@ interface ProjectSettingServiceInterface
     public function store(array $data): void;
 
     /**
-     * @param ProjectSetting $projectSetting
+     * @param int $projectSettingId
      * @return ProjectSettingsResource
      */
-    public function prepareForExposure(ProjectSetting $projectSetting): ProjectSettingsResource;
+    public function prepareForExposure(int $projectSettingId): ProjectSettingsResource;
 
     /**
      * @param array $data
@@ -34,8 +28,7 @@ interface ProjectSettingServiceInterface
 
     /**
      * @param array $data
-     * @param ProjectSettingRepositoryInterface $projectSettingRepository
      * @return ProjectSettingsResource
      */
-    public function getProjectSettings(array $data, ProjectSettingRepositoryInterface $projectSettingRepository): ProjectSettingsResource;
+    public function getProjectSettings(array $data): ProjectSettingsResource;
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\Payment;
-use App\Models\ProjectSetting;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GetCompanyPaymentsRequest extends FormRequest

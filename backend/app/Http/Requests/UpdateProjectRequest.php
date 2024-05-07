@@ -2,13 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Company;
-use App\Models\Coupon;
-use App\Models\Order;
 use App\Models\Project;
-use App\Models\ProjectSetting;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateProjectRequest extends FormRequest
 {

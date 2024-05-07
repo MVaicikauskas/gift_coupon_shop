@@ -26,9 +26,6 @@ class StoreOrderRequest extends FormRequest
      */
     public function rules(): array
     {
-        /** @var Project $project */
-        $project = null;
-
         /** @var ProjectSetting $projectSettings */
         $projectSettings = null;
 
@@ -55,6 +52,7 @@ class StoreOrderRequest extends FormRequest
             Order::COL_COUPON_TYPE => ['required', 'integer',  Rule::in($couponTypes)],
             Order::COL_COUPON_DELIVERY=> ['required', 'integer',  Rule::in(Order::$deliveryTypes)],
             Order::COL_PICKUP_COORDINATES => 'required_if:' . Order::COL_COUPON_DELIVERY . ',' . Order::COUPON_DELIVERY_PHYSICAL_PICKUP,
+            Order::COL_SELECTED_BANK => 'required|string',
             Order::EXTRA_COL_PROJECT_ID => 'required|exists:projects,id',
         ];
     }

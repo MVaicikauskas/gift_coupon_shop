@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Company;
-use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Project;
 use App\Models\ProjectSetting;
@@ -28,9 +26,6 @@ class StoreCouponRequest extends FormRequest
      */
     public function rules(): array
     {
-        /** @var Project $project */
-        $project = null;
-
         /** @var ProjectSetting $projectSettings */
         $projectSettings = null;
 

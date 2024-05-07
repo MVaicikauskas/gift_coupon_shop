@@ -21,6 +21,8 @@ class ProjectSetting extends Model
     const SETTING_KEY_EXPIRATION_TERM = 'expiration_term';
     const SETTING_KEY_MONTONIO_ACCESS_KEY = 'montonio_access_key';
     const SETTING_KEY_MONTONIO_SECRET_KEY = 'montonio_secret_key';
+    const SETTING_KEY_PAYMENT_METHOD = 'payment_method';
+    const SETTING_KEY_RETURN_URL = 'return_url';
     // END SETTINGS' KEYS
 
     public static $projectSettings = [
@@ -29,6 +31,8 @@ class ProjectSetting extends Model
         self::SETTING_KEY_EXPIRATION_TERM,
         self::SETTING_KEY_MONTONIO_ACCESS_KEY,
         self::SETTING_KEY_MONTONIO_SECRET_KEY,
+        self::SETTING_KEY_PAYMENT_METHOD,
+        self::SETTING_KEY_RETURN_URL,
     ];
 
     // RELATIONS

@@ -15,10 +15,10 @@ interface CouponServiceInterface
     public function store(array $data): void;
 
     /**
-     * @param Coupon $coupon
+     * @param int $couponId
      * @return CouponResource
      */
-    public function prepareForExposure(Coupon $coupon): CouponResource;
+    public function prepareForExposure(int $couponId): CouponResource;
 
     /**
      * @param array $data

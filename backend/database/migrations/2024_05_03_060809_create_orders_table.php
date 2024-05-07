@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('coupon_type')->default(0);
             $table->unsignedTinyInteger('coupon_status')->default(0);
             $table->string('pickup_coordinates')->nullable();
+            $table->string('selected_bank')->nullable();
             $table->timestamps();
         });
     }

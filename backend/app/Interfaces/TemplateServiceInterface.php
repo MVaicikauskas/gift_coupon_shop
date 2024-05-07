@@ -2,14 +2,7 @@
 
 namespace App\Interfaces;
 
-use App\Http\Resources\PaymentResource;
-use App\Http\Resources\ProjectSettingsResource;
-use App\Models\Payment;
-use App\Models\ProjectSetting;
 use App\Models\Template;
-use App\Repository\PaymentRepositoryInterface;
-use App\Repository\ProjectSettingRepositoryInterface;
-use App\Repository\TemplateRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -30,23 +23,27 @@ interface TemplateServiceInterface
     public function update(array $data): void;
 
     /**
-     * @param array $data
-     * @param TemplateRepositoryInterface $templateRepository
-     * @return AnonymousResourceCollection
+     * @param Template $template
+     * @return void
+     * @throws \Throwable
      */
-    public function getAllTemplates(array $data, TemplateRepositoryInterface $templateRepository): AnonymousResourceCollection;
+    public function destroy(Template $template): void;
 
     /**
      * @param array $data
-     * @param TemplateRepositoryInterface $templateRepository
      * @return AnonymousResourceCollection
      */
-    public function getAllActiveTemplates(array $data, TemplateRepositoryInterface $templateRepository): AnonymousResourceCollection;
+    public function getAllTemplates(array $data): AnonymousResourceCollection;
 
     /**
      * @param array $data
-     * @param TemplateRepositoryInterface $templateRepository
+     * @return AnonymousResourceCollection
+     */
+    public function getAllActiveTemplates(array $data): AnonymousResourceCollection;
+
+    /**
+     * @param array $data
      * @return JsonResponse
      */
-    public function streamProjectTemplates(array $data, TemplateRepositoryInterface $templateRepository): JsonResponse;
+    public function streamProjectTemplates(array $data): JsonResponse;
 }

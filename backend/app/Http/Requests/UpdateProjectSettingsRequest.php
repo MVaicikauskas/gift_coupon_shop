@@ -2,14 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Company;
-use App\Models\Coupon;
-use App\Models\Order;
-use App\Models\Payment;
-use App\Models\Project;
 use App\Models\ProjectSetting;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateProjectSettingsRequest extends FormRequest
 {
@@ -34,7 +28,7 @@ class UpdateProjectSettingsRequest extends FormRequest
 
         /** @var array $rules */
         $rules = [];
-//        dd($this->request);
+
         foreach ($projectSettings as $projectSetting) {
             switch ($projectSetting) {
                 case ProjectSetting::SETTING_KEY_VALUES:

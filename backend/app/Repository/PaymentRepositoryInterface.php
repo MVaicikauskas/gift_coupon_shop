@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 interface PaymentRepositoryInterface extends BaseRepositoryInterface
@@ -17,4 +18,10 @@ interface PaymentRepositoryInterface extends BaseRepositoryInterface
      * @return Collection
      */
     public function getCompanyPayments(int $companyId): Collection;
+
+    /**
+     * @param int $orderId
+     * @return Model
+     */
+    public function getOrderPayment(int $orderId): Model;
 }

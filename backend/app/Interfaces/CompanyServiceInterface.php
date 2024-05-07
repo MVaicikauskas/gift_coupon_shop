@@ -4,9 +4,15 @@ namespace App\Interfaces;
 
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 interface CompanyServiceInterface
 {
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function getCompaniesList(): AnonymousResourceCollection;
+
     /**
      * @param array $data
      * @return void
@@ -22,10 +28,10 @@ interface CompanyServiceInterface
     public function update(array $data): void;
 
     /**
-     * @param Company $company
+     * @param int $companyId)
      * @return CompanyResource
      */
-    public function prepareForExposure(Company $company): CompanyResource;
+    public function prepareForExposure(int $companyId): CompanyResource;
 
     /**
      * @param Company $company

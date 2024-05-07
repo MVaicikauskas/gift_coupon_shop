@@ -3,32 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DownloadCouponRequest;
+use App\Http\Requests\GetCouponRequest;
 use App\Http\Requests\SendCouponRequest;
 use App\Http\Requests\StoreCouponRequest;
 use App\Http\Requests\UpdateCouponRequest;
 use App\Http\Resources\CouponResource;
 use App\Interfaces\CouponServiceInterface;
-use App\Models\Company;
 use App\Models\Coupon;
-use App\Models\User;
-use App\Repository\CouponRepositoryInterface;
-use App\Services\CouponService;
-use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    private readonly CouponRepositoryInterface $couponRepository;
     private readonly CouponServiceInterface $couponService;
 
     /**
-     * @param CouponRepositoryInterface $couponRepository
      * @param CouponServiceInterface $couponService;
      */
-    public function __construct(CouponRepositoryInterface $couponRepository, CouponServiceInterface $couponService)
+    public function __construct(CouponServiceInterface $couponService)
     {
-        $this->couponRepository = $couponRepository;
         $this->couponService = $couponService;
-
     }
 
     /**
@@ -44,12 +36,12 @@ class CouponController extends Controller
 
     /**
      * Display the specified resource.
-     * @param Coupon $coupon
+     * @param GetCouponRequest $request
      * @return CouponResource
      */
-    public function show(Coupon $coupon): CouponResource
+    public function show(GetCouponRequest $request): CouponResource
     {
-        return $this->couponService->prepareForExposure($coupon);
+        return $this->couponService->prepareForExposure($request->validated([Coupon::COL_ID]));
     }
 
     /**

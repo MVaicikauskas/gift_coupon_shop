@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Log;
 
 class ProjectService implements ProjectServiceInterface
 {
+    private readonly ProjectRepositoryInterface $projectRepository;
+
+    /**
+     * @param ProjectRepositoryInterface $projectRepository
+     */
+    public function __construct(ProjectRepositoryInterface $projectRepository)
+    {
+        $this->projectRepository = $projectRepository;
+    }
+
     /**
      * @param array $data
      * @return void
@@ -38,12 +48,12 @@ class ProjectService implements ProjectServiceInterface
     }
 
     /**
-     * @param Project $project
+     * @param int $projectId
      * @return ProjectResource
      */
-    public function prepareForExposure(Project $project): ProjectResource
+    public function prepareForExposure(int $projectId): ProjectResource
     {
-        return new ProjectResource($project);
+        return new ProjectResource($this->projectRepository->getModelById($projectId));
     }
 
     /**
@@ -56,7 +66,7 @@ class ProjectService implements ProjectServiceInterface
         DB::beginTransaction();
 
         try {
-            Project::findOrFail($data[Project::COL_ID])->update([
+            $this->projectRepository->getModelById($data[Project::COL_ID])->update([
                 Project::COL_NAME => $data[Project::COL_NAME],
                 Project::COL_IS_ACTIVE => $data[Project::COL_IS_ACTIVE],
             ]);
@@ -91,11 +101,10 @@ class ProjectService implements ProjectServiceInterface
 
     /**
      * @param array $data
-     * @param ProjectRepositoryInterface $projectRepository
      * @return AnonymousResourceCollection
      */
-    public function getCompanyProjects(array $data, ProjectRepositoryInterface $projectRepository): AnonymousResourceCollection
+    public function getCompanyProjects(array $data): AnonymousResourceCollection
     {
-        return ProjectResource::collection($projectRepository->getAllCompanyProjects($data[Project::EXTRA_COL_COMPANY_ID]));
+        return ProjectResource::collection($this->projectRepository->getAllCompanyProjects($data[Project::EXTRA_COL_COMPANY_ID]));
     }
 }

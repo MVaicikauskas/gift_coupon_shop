@@ -11,4 +11,10 @@ interface ProjectRepositoryInterface extends BaseRepositoryInterface
      * @return Collection
      */
     public function getAllCompanyProjects(int $companyId): Collection;
+
+    /**
+     * @param int $projectId
+     * @return Collection
+     */
+    public function getProjectFaqs(int $projectId): Collection;
 }

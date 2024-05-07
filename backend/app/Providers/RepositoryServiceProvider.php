@@ -8,13 +8,17 @@ use App\Repository\CouponRepositoryInterface;
 use App\Repository\Eloquent\BaseRepository;
 use App\Repository\Eloquent\CompanyRepository;
 use App\Repository\Eloquent\CouponRepository;
+use App\Repository\Eloquent\FaqRepository;
 use App\Repository\Eloquent\OrderRepository;
+use App\Repository\Eloquent\PaymentMethodRepository;
 use App\Repository\Eloquent\PaymentRepository;
 use App\Repository\Eloquent\ProjectRepository;
 use App\Repository\Eloquent\ProjectSettingRepository;
 use App\Repository\Eloquent\TemplateRepository;
 use App\Repository\Eloquent\UserRepository;
+use App\Repository\FaqRepositoryInterface;
 use App\Repository\OrderRepositoryInterface;
+use App\Repository\PaymentMethodRepositoryInterface;
 use App\Repository\PaymentRepositoryInterface;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\ProjectSettingRepositoryInterface;
@@ -44,6 +48,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProjectSettingRepositoryInterface::class, ProjectSettingRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(TemplateRepositoryInterface::class, TemplateRepository::class);
+        $this->app->bind(FaqRepositoryInterface::class, FaqRepository::class);
+        $this->app->bind(PaymentMethodRepositoryInterface::class, PaymentMethodRepository::class);
     }
 
     /**

@@ -2,15 +2,40 @@
 
 namespace App\Services;
 
+use App\Http\Resources\CompaniesListResource;
 use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyServiceInterface;
 use App\Models\Company;
 use App\Models\User;
+use App\Repository\CompanyRepositoryInterface;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CompanyService implements CompanyServiceInterface
 {
+    private readonly CompanyRepositoryInterface $companyRepository;
+
+    /**
+     * @param CompanyRepositoryInterface $companyRepository
+     */
+    public function __construct(CompanyRepositoryInterface $companyRepository)
+    {
+        $this->companyRepository = $companyRepository;
+    }
+
+    /**
+     * @return AnonymousResourceCollection
+     */
+    public function getCompaniesList(): AnonymousResourceCollection
+    {
+        /** @var Collection $companies */
+        $companies = CompaniesListResource::collection($this->companyRepository->all());
+
+        return CompanyResource::collection($companies);
+    }
+
     /**
      * @param array $data
      * @return void
@@ -48,7 +73,7 @@ class CompanyService implements CompanyServiceInterface
         DB::beginTransaction();
 
         try {
-            Company::findOrFail($data[Company::COL_ID])->update([
+            $this->companyRepository->getModelById($data[Company::COL_ID])->update([
                 Company::COL_NAME => $data[Company::COL_NAME],
                 Company::COL_EMAIL => $data[Company::COL_EMAIL],
                 Company::COL_COMPANY_CODE => $data[Company::COL_COMPANY_CODE],
@@ -64,12 +89,12 @@ class CompanyService implements CompanyServiceInterface
     }
 
     /**
-     * @param Company $company
+     * @param int $companyId)
      * @return CompanyResource
      */
-    public function prepareForExposure(Company $company): CompanyResource
+    public function prepareForExposure(int $companyId): CompanyResource
     {
-        return new CompanyResource($company);
+        return new CompanyResource($this->companyRepository->getModelById($companyId));
     }
 
     /**
@@ -79,6 +104,16 @@ class CompanyService implements CompanyServiceInterface
      */
     public function delete(Company $company): void
     {
+        DB::beginTransaction();
 
+        try {
+            $company->deleteOrFail();
+
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollback();
+            Log::error($e->getMessage());
+            throw $e;
+        }
     }
 }
