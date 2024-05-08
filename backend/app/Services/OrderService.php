@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Actions\StorePayment;
 use App\Http\Resources\OrderResource;
 use App\Interfaces\OrderServiceInterface;
 use App\Interfaces\PaymentServiceInterface;
@@ -14,24 +15,23 @@ use Illuminate\Support\Facades\Log;
 class OrderService implements OrderServiceInterface
 {
     private readonly OrderRepositoryInterface $orderRepository;
-    private readonly PaymentServiceInterface $paymentService;
 
     /**
      * @param OrderRepositoryInterface $orderRepository
      */
-    public function __construct(OrderRepositoryInterface $orderRepository, PaymentServiceInterface $paymentService)
+    public function __construct(OrderRepositoryInterface $orderRepository)
     {
         $this->orderRepository = $orderRepository;
-        $this->paymentService = $paymentService;
     }
 
     /**
      * @param array $data
      * @param bool $returnId
+     * @param StorePayment $storePayment
      * @return int|null
      * @throws \Exception
      */
-    public function store(array $data, bool $returnId = false): ?int
+    public function store(array $data, bool $returnId = false, StorePayment $storePayment): ?int
     {
         DB::beginTransaction();
 
@@ -59,10 +59,12 @@ class OrderService implements OrderServiceInterface
                 Payment::RELATED_KEY_ORDER_ID => $order->{Order::COL_ID},
             ];
 
-            $this->paymentService->store($paymentData);
+            $storePayment->handle($paymentData);
+
             if ($returnId) {
                 return $order->{Order::COL_ID};
             }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();

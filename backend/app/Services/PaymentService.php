@@ -277,7 +277,7 @@ class PaymentService implements PaymentServiceInterface
 
                 switch ($projectSettings[ProjectSetting::SETTING_KEY_PAYMENT_METHOD]) {
                     case self::PAYMENT_METHOD_MONTONIO:
-                        // Gathering all necessary data to pass into 
+                        // Gathering all necessary data to pass into
                         $newDataArray = [
                             'order' => $data,
                             'order_id' => $orderId,
@@ -307,12 +307,12 @@ class PaymentService implements PaymentServiceInterface
     private function payByMontonio(array $data): string
     {
         // 0. Prepare data which you're going to need
-//        $orderPaymentData = [
-//            Payment::COL_BANK_NAME => null,
-//            Payment::COL_BANK_CODE => $data['order'][Order::COL_SELECTED_BANK],
-//            Payment::COL_TRANSACTION_STATUS => Payment::TRANSACTION_STATUS_ONGOING,
-//            Payment::COL_PAYMENT_METHOD=> self::PAYMENT_METHOD_MONTONIO,
-//        ];
+        $orderPaymentData = [
+            Payment::COL_BANK_NAME => null,
+            Payment::COL_BANK_CODE => $data['order'][Order::COL_SELECTED_BANK],
+            Payment::COL_TRANSACTION_STATUS => Payment::TRANSACTION_STATUS_ONGOING,
+            Payment::COL_PAYMENT_METHOD=> self::PAYMENT_METHOD_MONTONIO,
+        ];
 
         /** @var string $accessKey */
         $accessKey = decrypt($data['project_settings'][ProjectSetting::SETTING_KEY_MONTONIO_ACCESS_KEY]);
@@ -333,13 +333,13 @@ class PaymentService implements PaymentServiceInterface
                 continue;
             }
 
-//            $orderPaymentData[Payment::COL_BANK_NAME] = $paymentMethod['name'];
+            $orderPaymentData[Payment::COL_BANK_NAME] = $paymentMethod['name'];
             $preferredProvider = $data['order'][Order::COL_SELECTED_BANK];
         }
 
         if (! $preferredProvider) {
-//            $orderPaymentData[Payment::COL_TRANSACTION_STATUS] = Payment::TRANSACTION_STATUS_FAILED;
-//            self::changeOrderPaymentStatus($orderPaymentData);
+            $orderPaymentData[Payment::COL_TRANSACTION_STATUS] = Payment::TRANSACTION_STATUS_FAILED;
+            self::changeOrderPaymentStatus($orderPaymentData);
 
             throw new \Exception('Preferred provider is not available');
         }
@@ -417,6 +417,9 @@ class PaymentService implements PaymentServiceInterface
                 }
                 $message .= $responseMessage;
             }
+
+            $orderPaymentData[Payment::COL_TRANSACTION_STATUS] = Payment::TRANSACTION_STATUS_FAILED;
+            self::changeOrderPaymentStatus($orderPaymentData);
 
             throw new \Exception($message. ' (' . $result['error'] . ') ', $status);
         }

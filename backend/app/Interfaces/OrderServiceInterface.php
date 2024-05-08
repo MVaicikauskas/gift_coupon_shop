@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
+use App\Actions\StorePayment;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 
@@ -9,10 +10,12 @@ interface OrderServiceInterface
 {
     /**
      * @param array $data
+     * @param bool $returnId
+     * @param StorePayment $storePayment
      * @return int | null
      * @throws \Exception
      */
-    public function store(array $data): int |null;
+    public function store(array $data, bool $returnId = false, StorePayment $storePayment): int |null;
 
     /**
      * @param int $orderId

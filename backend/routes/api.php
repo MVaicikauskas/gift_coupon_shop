@@ -136,6 +136,5 @@ Route::middleware(ProjectMiddleware::class)->prefix('project/')->group(function(
 });
 
 //// OUT OF MIDDLEWARE ROUTES FOR EXTERNAL SOURCES
-//Route::post('/order/confirm_paid_order', [PaymentController::class, 'confirmPaidOrder']);
+Route::post('/order/confirm_paid_order', [PaymentController::class, 'confirmPaidOrder']);
 //// END
-
